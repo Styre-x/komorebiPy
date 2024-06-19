@@ -62,6 +62,7 @@ def _on_destroy(*args):
 
 
 def main():
+    print("started")
     #print(f'Welcome to {__package_name__}')
 
     # Handle Ctrl-C
@@ -101,9 +102,9 @@ def main():
     logging.debug('Gst initialized')
 
     # Load resources
-    resource_path = os.path.join(__package_datadir__, 'gresource')
-    resource = Gio.Resource.load(resource_path)
-    Gio.resources_register(resource)
+    #resource_path = os.path.join("/home/nick/Documents/Komorebi/", 'gresource')
+    #resource = Gio.Resource.load("/home/nick/Documents/Komorebi")#(resource_path)
+    #Gio.resources_register(resource)
 
     display = Gdk.Display.get_default()
     if args.single_screen:

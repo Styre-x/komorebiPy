@@ -2,8 +2,8 @@ import logging
 
 from gi.repository import GtkClutter, WebKit2
 
-from wallpapers.base import Wallpaper
-from bubblemenu.item import BubbleMenuItem
+from wallpaperbase import Wallpaper
+from bubblemenuitem import BubbleMenuItem
 
 
 class WebWallpaper(Wallpaper):

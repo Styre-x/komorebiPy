@@ -3,8 +3,8 @@ import logging
 
 from gi.repository import Clutter, Cogl, Gdk, GdkPixbuf, Gio, GLib, Gtk, Pango
 
-from bubblemenu.item import BubbleMenuItem, ViewMode
-from overlays.base import Overlay
+from bubblemenuitem import BubbleMenuItem, ViewMode
+from overlaybase import Overlay
 
 from settings import Settings
 import utilities

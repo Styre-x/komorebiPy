@@ -4,10 +4,10 @@ from enum import IntEnum
 
 from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk
 
-import komorebi
-from overlays.base import OverlayType
+#import komorebi
+from overlaybase import OverlayType
 from settings import ConfigKeys, Settings
-from wallpapers.base import WallpaperType
+from wallpaperbase import WallpaperType
 
 
 # Helper classes to index tuples of information
@@ -59,7 +59,7 @@ def get_wallpaper_config_file(name):
     # If not, fallback to the default type
     if not wallpaper_found:
         name = 'foggy_sunny_mountain'
-        wallpaper_path = f'{__package_datadir__}/{name}'
+        wallpaper_path = f'{"/home/nick/Documents/Komorebi/"}/{name}'
         wallpaper_config_path = f'{wallpaper_path}/config'
 
         logging.error(f'got an invalid wallpaper. Setting to default: {name}')
@@ -100,13 +100,13 @@ def load_wallpaper(screen, wallpaper_config):
         wallpaper_type = WallpaperType.IMAGE.value
     wallpaper = None
     if wallpaper_type == WallpaperType.IMAGE.value:
-        from wallpapers.image import ImageWallpaper
+        from wallpapersimage import ImageWallpaper
         wallpaper = ImageWallpaper(screen, wallpaper_config)
     elif wallpaper_type == WallpaperType.VIDEO.value:
-        from wallpapers.video import VideoWallpaper
+        from wallpapersvideo import VideoWallpaper
         wallpaper = VideoWallpaper(screen, wallpaper_config)
     elif wallpaper_type == WallpaperType.WEB.value:
-        from wallpapers.web import WebWallpaper
+        from wallpapersweb import WebWallpaper
         wallpaper = WebWallpaper(screen, wallpaper_config)
     else:
         logging.warning(f"Invalid wallpaper type: {wallpaper_type}")
@@ -120,14 +120,14 @@ def load_overlays(screen, wallpaper_config):
 
     for overlay in wallpaper_config.get_string('Info', 'Order').split(','):
         if overlay == OverlayType.CLOCK.value:
-            from overlays.clock import Clock
+            from overlayclock import Clock
             overlays.append(Clock(screen, wallpaper_config))
         if overlay == OverlayType.ASSET.value:
-            from overlays.asset import Asset
+            from overlayasset import Asset
             overlays.append(Asset(screen, wallpaper_config))
         # elif overlay == OverlayType.DESKTOP.value: 	# This doesn't exist on wallpaper specification *yet*
     if Settings.show_desktop_icons:					# so for now we simply use this
-        from overlays.desktop import Desktop
+        from overlaydesktop import Desktop
         overlays.append(Desktop(screen))
 
     return overlays
@@ -138,7 +138,7 @@ def on_settings_changed(screen, setting_key):
 
     if (setting_key == ConfigKeys.SHOW_DESKTOP
             and Settings.show_desktop_icons):
-        from overlays.desktop import Desktop
+        from overlaydesktop import Desktop
         overlays.append(Desktop(screen))
 
     return overlays

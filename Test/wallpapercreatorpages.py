@@ -2,7 +2,7 @@ import os
 
 from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk
 
-import wallpaper_creator.utilities as utilities
+import wallpapercreatorutilities as utilities
 from settings import Settings
 
 

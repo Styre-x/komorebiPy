@@ -2,7 +2,7 @@ import logging
 
 from gi.repository import Cogl, Clutter, GdkPixbuf
 
-from wallpapers.base import Wallpaper
+from wallpaperbase import Wallpaper
 
 
 class ImageWallpaper(Wallpaper):

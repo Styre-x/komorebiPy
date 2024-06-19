@@ -13,8 +13,7 @@ gi.require_versions({
 })
 
 from gi.repository import Gtk, Gio
-from wallpaper_creator.window import WallpaperWindow
-import komorebi
+from wallpapercreatorwindow import WallpaperWindow
 
 
 def main_parser():
@@ -22,7 +21,7 @@ def main_parser():
     parser.add_argument('-v', '--version',
                         action='version',
                         help='show current version',
-                        version=f'Version: {__version__}\nMaintained by: Komorebi Team')
+                        version=f'Maintained by: Komorebi Team')
     parser.add_argument('-l', '--log',
                         type=str,
                         choices=['NORMAL', 'INFO', 'DEBUG'],
@@ -32,7 +31,7 @@ def main_parser():
 
 
 def main():
-    print(f'Welcome to {__package_name__} Wallpaper Creator')
+    print(f'Welcome to Komorebi Wallpaper Creator')
 
     parser = main_parser()
     args = parser.parse_args()
@@ -51,7 +50,7 @@ def main():
     logging.basicConfig(format=log_format, level=log_level, datefmt='%H:%M:%S')
 
     # Load resources
-    resource_path = os.path.join(__package_datadir__, 'gresource')
+    resource_path = os.path.join("/home/nick/Documents/Komorebi/", 'gresource')
     resource = Gio.Resource.load(resource_path)
     Gio.resources_register(resource)
 

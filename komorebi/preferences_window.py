@@ -42,7 +42,7 @@ class Thumbnail(Gtk.EventBox):
 
 class WallpapersSelector(Gtk.ScrolledWindow):
     # Komorebi can't find wallpapers if this variable doesn't have a trailing slash. Hacky, but it works. Fix later on.
-    path = f'{komorebi.__package_datadir__}/'
+    path = f'{komorebi."/home/nick/Documents/Komorebi/"}/'
 
     grid = None
     row = None

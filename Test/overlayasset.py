@@ -2,8 +2,8 @@ import logging
 
 from gi.repository import Clutter, Cogl, GdkPixbuf, Gio, GLib
 
-import komorebi
-from overlays.base import Overlay, OverlayType
+#import komorebi
+from overlaybase import Overlay, OverlayType
 
 
 class Asset(Overlay):
@@ -81,7 +81,7 @@ class Asset(Overlay):
         if self.asset_height <= 0:
             self.asset_height = self.screen_height
 
-        asset_path = f'{__package_datadir__}/{name}/assets.png'
+        asset_path = f'{"/home/nick/Documents/Komorebi/"}/{name}/assets.png'
 
         if not Gio.File.new_for_path(asset_path).query_exists():
             logging.warning(f'asset with path: {asset_path} does not exist!')

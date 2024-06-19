@@ -3,7 +3,7 @@ import logging
 from gi.repository import Clutter, Gdk, GObject, Gtk, GtkClutter
 
 from menu import BubbleMenu
-from item import BubbleMenuItem
+from bubblemenuitem import BubbleMenuItem
 import utilities
 
 

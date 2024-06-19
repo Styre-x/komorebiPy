@@ -2,7 +2,7 @@ import logging
 
 from gi.repository import Clutter, GLib
 
-from overlays.base import Overlay, OverlayType
+from overlaybase import Overlay, OverlayType
 from settings import Settings
 from utilities import MarginIndex, RotationIndex
 

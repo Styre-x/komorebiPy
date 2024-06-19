@@ -4,7 +4,7 @@ from enum import Enum
 
 from gi.repository import Gio, GLib
 
-import komorebi
+#import komorebi
 
 
 class ConfigKeys(Enum):
@@ -157,5 +157,5 @@ class Settings:
         '''
         return [
             os.path.join(Settings.get_config_dir(), 'wallpapers'),
-            __package_datadir__
+            "/home/nick/Documents/Komorebi/"
         ]

@@ -2,7 +2,7 @@ import logging
 
 from gi.repository import ClutterGst
 
-from wallpapers.base import Wallpaper
+from wallpaperbase import Wallpaper
 from settings import ConfigKeys, Settings
 
 video_playback = None

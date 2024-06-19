@@ -101,7 +101,7 @@ def main():
     logging.debug('Gst initialized')
 
     # Load resources
-    resource_path = os.path.join(komorebi.__package_datadir__, 'komorebi.gresource')
+    resource_path = os.path.join(komorebi."/home/nick/Documents/Komorebi/", 'komorebi.gresource')
     resource = Gio.Resource.load(resource_path)
     Gio.resources_register(resource)
 

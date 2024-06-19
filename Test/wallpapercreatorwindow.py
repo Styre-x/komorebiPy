@@ -2,8 +2,8 @@ import logging
 
 from gi.repository import Gtk
 
-import wallpaper_creator.utilities as utilities
-import wallpaper_creator.pages as pages
+import wallpapercreatorutilities as utilities
+import wallpapercreatorpages as pages
 
 from utilities import apply_alpha, apply_css
 
