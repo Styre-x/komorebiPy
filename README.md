@@ -27,6 +27,7 @@ This project is a Python rewrite and continuation of the original [Komorebi](htt
 Komorebi has been tested on:
 
 - **Gentoo**
+- **Mint**
 
 Please test on your own distro and submit a pull request with your distro's instructions!
 
@@ -105,7 +106,8 @@ meson install
 > [!NOTE]
 > The default installation prefix is `/usr/local`. If you want to install it in a different location, you can specify it with `meson setup builddir --prefix=/your/prefix`.
 >
-> This is important, as /usr/local/bin is not in the default PATH for non-root users on most distros and, in particular, the `PYTHONPATH` may not include `/usr/local/lib/python3.x/site-packages`.
+> This is VERY important, as /usr/local/bin is not in the default PATH for non-root users on most distros and, in particular, the `PYTHONPATH` may not include `/usr/local/lib/python3.x/site-packages`.
+> IF IT DOES NOT LAUNCH: add the install location to `PYTHONPATH`. You can find the install location given when running `meson install`. 
 
 Users are encouraged to install Komorebi from their distro's package manager if available (or request it to be packaged!)
 
