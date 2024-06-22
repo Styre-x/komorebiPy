@@ -81,7 +81,7 @@ class Asset(Overlay):
         if self.asset_height <= 0:
             self.asset_height = self.screen_height
 
-        asset_path = f'{komorebi."/home/nick/Documents/Komorebi/"}/{name}/assets.png'
+        asset_path = f'{komorebi.__package_datadir__}/{name}/assets.png'
 
         if not Gio.File.new_for_path(asset_path).query_exists():
             logging.warning(f'asset with path: {asset_path} does not exist!')

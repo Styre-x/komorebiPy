@@ -51,7 +51,7 @@ def main():
     logging.basicConfig(format=log_format, level=log_level, datefmt='%H:%M:%S')
 
     # Load resources
-    resource_path = os.path("/home/nick/Documents/Komorebi/")
+    resource_path = os.path.join(komorebi.__package_datadir__, 'komorebi.gresource')
     resource = Gio.Resource.load(resource_path)
     Gio.resources_register(resource)
 

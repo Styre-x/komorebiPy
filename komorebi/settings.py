@@ -157,5 +157,5 @@ class Settings:
         '''
         return [
             os.path.join(Settings.get_config_dir(), 'wallpapers'),
-            komorebi."/home/nick/Documents/Komorebi/"
+            komorebi.__package_datadir__
         ]
