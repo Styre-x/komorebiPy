@@ -129,7 +129,8 @@ def load_overlays(screen, wallpaper_config):
     if Settings.show_desktop_icons:					# so for now we simply use this
         from komorebi.overlays.desktop import Desktop
         overlays.append(Desktop(screen))
-    # Making a note of this section because this might be where desktop icons can be fixed
+    # Making a note of this section because this might be where desktop icons can be fixed to be draggable/double-clickable
+    # etc.
 
     return overlays
 
