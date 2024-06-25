@@ -678,6 +678,9 @@ class Desktop(ResponsiveGrid):
                 icon_pixbuf = komorebi.utilities.get_icon_from(icon_path, self.icon_size)
                 command = key_file.get_string(GLib.KEY_FILE_DESKTOP_GROUP, GLib.KEY_FILE_DESKTOP_KEY_EXEC)
                 icon = ApplicationIcon(name, icon_pixbuf, desktop_file.get_path(), command, self.icon_size)
+            elif name.startswith("."):
+                 info = it.next_file()
+                 continue
             else:
                 icon_path = self.load_icon(desktop_file)
 
