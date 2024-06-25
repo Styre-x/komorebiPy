@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/Styre-x/komorebiPy/tree/master/screenshots/komorebi-icon.png" width="130"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Styre-x/komorebiPy/master/screenshots/komorebi-icon.png" width="130"></p>
 <h2 align="center">Komorebi - Animated Wallpapers for Linux</h2>
 <p align="center">(n) sunlight filtering through trees.</p>
 
@@ -20,7 +20,7 @@ It provides you with fully customisable image, video, and web page wallpapers th
 
 This project is a Python rewrite and continuation of the original [Komorebi](https://github.com/cheesecakeufo/komorebi) by [@cheesecakeufo](https://github.com/cheesecakeufo).
 
-![s1](https://raw.githubusercontent.com/Styre-x/komorebiPy/tree/master/screenshotscollage.jpg)
+![s1](https://raw.githubusercontent.com/Styre-x/komorebiPy/master/screenshotscollage.jpg)
 
 ## Installing
 
@@ -123,10 +123,11 @@ To install the compiled package:
 meson install
 ```
 
-> [!NOTE]
+
 > The default installation prefix is `/usr/local`. If you want to install it in a different location, you can specify it with `meson setup builddir --prefix=/your/prefix`.
 >
 > This is VERY important, as /usr/local/bin is not in the default PATH for non-root users on most distros and, in particular, the `PYTHONPATH` may not include `/usr/local/lib/python3.x/site-packages`.
+
 
 > IF IT DOES NOT LAUNCH: add the install location to `PYTHONPATH`. You can find the install location given when running `meson install`.
 > ex: `/usr/local/lib/python3/dist-packages/komorebi/` is where it installs on Ubuntu. 
