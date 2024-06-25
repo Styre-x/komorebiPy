@@ -162,9 +162,10 @@ def get_icon_from(icon, icon_size):
     iconTheme = Gtk.IconTheme.get_default()
     iconTheme.prepend_search_path('/usr/share/pixmaps')
 
-    for try_icon in (icon, 'emblem-file', 'application-default-icon', 'applications-symbolic', 'mime-type-application', 'question-symbolic'):
+    for try_icon in [icon, 'emblem-file', 'application-default-icon', 'applications-symbolic', 'mime-type-application', 'question-symbolic']:
         try:
             iconPixbuf = iconTheme.load_icon(try_icon, icon_size, Gtk.IconLookupFlags.FORCE_SIZE)
+            logging.debug(f'Loaded icon: {icon}.')
             break  # Success, stop trying fallbacks
         except GLib.Error:
             if try_icon == icon:
@@ -173,6 +174,7 @@ def get_icon_from(icon, icon_size):
 
     # If all else fails, log it and return an empty icon; at least we don't crash!
     if iconPixbuf is None:
+        iconPixbuf = iconTheme.load_icon("text-x-generic-symbolic", icon_size, Gtk.IconLookupFlags.FORCE_SIZE)
         logging.debug(f'Failed to load icon: {icon} and all fallbacks.')
 
     return iconPixbuf

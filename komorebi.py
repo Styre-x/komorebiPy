@@ -116,7 +116,7 @@ def main():
 
     # Initialize Screen's
     screen_list = [Screen(i) for i in range(monitor_count)]
-
+    print("HELLO THIS IS KITTY")
     # Setup some GTK properties
     main_settings = Gtk.Settings.get_default()
     main_settings.props.gtk_application_prefer_dark_theme = True
@@ -154,7 +154,7 @@ def main():
     # Start Clutter backend
     logging.debug("Starting Clutter backend...")
     Clutter.main()
-
+    
 
 if __name__ == '__main__':
     main()

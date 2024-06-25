@@ -687,13 +687,16 @@ class Desktop(ResponsiveGrid):
                     else:
                         icon_query = desktop_file.query_info("standard::icon", Gio.FileQueryInfoFlags.NONE) \
                                                  .get_icon().to_string().split(' ')
+                        
                         if len(icon_query) > 1:
                             icon_path = icon_query[-1]
-
+                        
                     icon_pixbuf = komorebi.utilities.get_icon_from(icon_path, self.icon_size)
+                    
                 else:
                     icon_pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(icon_path, self.icon_size, self.icon_size, False)
 
+                
                 icon = FolderIcon(name, icon_pixbuf, desktop_file.get_path(), self.icon_size)
 
             self.icons_list.append(icon)
