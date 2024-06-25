@@ -123,12 +123,12 @@ To install the compiled package:
 meson install
 ```
 
-
+> [!NOTE]
 > The default installation prefix is `/usr/local`. If you want to install it in a different location, you can specify it with `meson setup builddir --prefix=/your/prefix`.
 >
 > This is VERY important, as /usr/local/bin is not in the default PATH for non-root users on most distros and, in particular, the `PYTHONPATH` may not include `/usr/local/lib/python3.x/site-packages`.
 
-
+> [!NOTE]
 > IF IT DOES NOT LAUNCH: add the install location to `PYTHONPATH`. You can find the install location given when running `meson install`.
 > ex: `/usr/local/lib/python3/dist-packages/komorebi/` is where it installs on Ubuntu. 
 > Add to the python path by editing .bashrc:
