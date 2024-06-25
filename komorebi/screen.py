@@ -99,10 +99,12 @@ class Screen(Gtk.Window):
         def _on_button_press_event(_, e, self):
             if e.type == Clutter.EventType.BUTTON_PRESS:
                 if e.button == Gdk.BUTTON_SECONDARY and not self.dimmed:
-                    self.dim_wallpaper()
+                    #self.dim_wallpaper()
+                    self.dimmed = True
                     self.bubble_menu.fade_in(e)
                 elif self.dimmed:
-                    self.un_dim_wallpaper()
+                    #self.un_dim_wallpaper()
+                    self.dimmed = False
                     self.bubble_menu.fade_out()
             return True
 

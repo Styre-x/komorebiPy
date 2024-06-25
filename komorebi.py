@@ -46,8 +46,9 @@ def main_parser():
                         help='show current version',
                         version=f'Version: {komorebi.__version__}\nMaintained by: Komorebi Team')
     parser.add_argument('-ss', '--single-screen',
-                        action='store_true',
-                        help='force komorebi to run only on the main screen')
+                        type=int,
+                        choices=[0, 1],
+                        help='force komorebi to run only on the specified screen, 0 or 1')
     parser.add_argument('-l', '--log',
                         type=str,
                         choices=['NORMAL', 'INFO', 'DEBUG'],
@@ -115,8 +116,12 @@ def main():
     komorebi.utilities.init_clipboard(display)
 
     # Initialize Screen's
-    screen_list = [Screen(i) for i in range(monitor_count)]
-    print("HELLO THIS IS KITTY")
+    
+    if args.single_screen:
+        screen_list = [Screen(args.single_screen)]
+    else:
+        screen_list = [Screen(i) for i in range(monitor_count)]
+    
     # Setup some GTK properties
     main_settings = Gtk.Settings.get_default()
     main_settings.props.gtk_application_prefer_dark_theme = True
