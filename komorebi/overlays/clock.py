@@ -168,11 +168,11 @@ class Clock(Overlay):
 
     def register_menu_actions(self, menu):
         def _on_menu_open(_1, _2, self):
-            self.hide()
+            #self.hide()
             return False
 
         def _on_menu_close(_, self):
-            self.show()
+            #self.show()
             return False
 
         menu.connect_weak('menu_opened', _on_menu_open, self)

@@ -57,6 +57,7 @@ class BubbleMenu(Clutter.Actor):
         self.signal_handlers = []
 
     def fade_in(self, e):
+        logging.debug("Fading in")
         # Make sure we don't display offscreen
         x = min(e.x, self.screen_width - (self.get_width() + 15 * 2))
         y = min(e.y, self.screen_height - (self.get_height() + 15 * 2))
@@ -75,9 +76,10 @@ class BubbleMenu(Clutter.Actor):
         self.restore_easing_state()
 
         self.emit('menu_opened', e)
-
+        
         for hierarchy in self.get_children():
             for child in hierarchy.get_children():
+                logging.debug("Showing items")
                 child.show_item()
 
         logging.debug("BubbleMenu faded in")
