@@ -117,7 +117,7 @@ def load_wallpaper(screen, wallpaper_config):
 
 def load_overlays(screen, wallpaper_config):
     overlays = []
-
+    
     for overlay in wallpaper_config.get_string('Info', 'Order').split(','):
         if overlay == OverlayType.CLOCK.value:
             from komorebi.overlays.clock import Clock
