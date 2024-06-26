@@ -601,6 +601,8 @@ class FinalPage(Gtk.Box):
         utilities.wallpaper_name = utilities.wallpaper_name.replace(' ', '_').replace('.', '_').lower()
 
         dir_path = os.path.join(Settings.get_config_dir(), 'wallpapers', utilities.wallpaper_name)
+        if Gio.File.query_exists(Gio.File.new_for_path(dir_path)):
+            Gio.File.trash(Gio.File.new_for_path(dir_path))
         Gio.File.new_for_path(dir_path).make_directory_with_parents()
         config_path = dir_path + '/config'
         config_file = Gio.File.new_for_path(config_path)

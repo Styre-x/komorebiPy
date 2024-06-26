@@ -138,16 +138,16 @@ class WallpaperWindow(Gtk.Window):
             current_page = self.stack.get_visible_child_name()
 
             if current_page == 'initial':
-                if (utilities.wallpaper_name is None
-                        or (utilities.wallpaper_type == 'image' or utilities.wallpaper_type == 'video')
-                        and utilities.file_path is None):
+                if (utilities.wallpaper_name is None or (utilities.wallpaper_type == 'image' or utilities.wallpaper_type == 'video') and utilities.file_path is None):
                     self.display_error('Please enter a wallpaper name and choose a file')
                     return True
                 elif (utilities.wallpaper_name is None or utilities.wallpaper_type == 'web_page'
                         and utilities.web_page_url is None):
                     self.display_error('Please enter a wallpaper name, a valid URL, and a thumbnail')
                     return True
-
+                if (utilities.wallpaper_type == "video" and utilities.thumbnail_path is None):
+                    self.display_error("Please enter a thumbnail path")
+                    return True
                 self.options_page = pages.OptionsPage()
                 self.add_layer_btn.set_visible(utilities.wallpaper_type == 'image')
                 if utilities.wallpaper_type == 'image':

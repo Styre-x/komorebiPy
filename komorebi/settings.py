@@ -18,6 +18,7 @@ class ConfigKeys(Enum):
 
 
 class Settings:
+
     key_file_group = 'KomorebiProperties'
 
     # Settings
@@ -26,7 +27,9 @@ class Settings:
     show_desktop_icons = True
     enable_video_wallpapers = True
     mute_playback = False
-    pause_playback = True
+    # yeah, this is bad for performance. Oh well!
+    # It fixes the dual monitor issue. 
+    pause_playback = False
     autostart = False
 
     # Internal settings files
