@@ -174,9 +174,9 @@ class Screen(Gtk.Window):
         # VERY BAD
         # FIGURE OUT WHY IT IS CRASHING
 
-        #for overlay in overlays:
-        #    self.overlay_root.add_child(overlay)
-        #    overlay.register_menu_actions(self.bubble_menu)
+        for overlay in overlays:
+            self.overlay_root.add_child(overlay)
+            overlay.register_menu_actions(self.bubble_menu)
 
     def fade_in(self):
         self.show_all()

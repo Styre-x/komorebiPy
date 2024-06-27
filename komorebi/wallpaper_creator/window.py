@@ -44,15 +44,6 @@ class WallpaperWindow(Gtk.Window):
         }
     """
 
-    header_css = """
-        *{
-            background-color: rgba(0, 0, 0, 0);
-            box-shadow: none;
-            color: white;
-            border-width: 0px;
-        }
-    """
-
     def __init__(self):
         logging.debug('Loading WallpaperWindow...')
         Gtk.Window.__init__(self, title='New Komorebi Wallpaper')
@@ -82,7 +73,6 @@ class WallpaperWindow(Gtk.Window):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_titlebar(self.header_bar)
         apply_css([self.layout], self.main_css)
-        apply_css([self.header_bar], self.header_css)
         apply_alpha([self])
 
         # Setup widgets
