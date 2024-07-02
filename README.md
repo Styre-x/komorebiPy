@@ -39,7 +39,7 @@ Please test on your own distro and submit a pull request with your distro's inst
 If you'd like to compile Komorebi from source instead, you'll need to install the following dependencies:
 
 ```bash
-sudo apt install valac libgtk-3-dev libgee-0.8-dev libclutter-gtk-1.0-dev libclutter-1.0-dev libwebkit2gtk-4.0-dev libclutter-gst-3.0-dev
+sudo apt install valac libgtk-3-dev libgee-0.8-dev libclutter-gtk-1.0-dev libclutter-1.0-dev libwebkit2gtk-4.0-dev libclutter-gst-3.0-dev libgtk-4-dev
 ```
 
 Meson needs to be installed through pip. The Ubuntu package is consistantly out of date.
@@ -112,7 +112,7 @@ Run the following:
 
 ```bash
 git clone https://github.com/Styre-x/komorebiPy.git
-cd komorebi
+cd komorebiPy
 meson setup builddir --python.bytecompile=2
 cd builddir && meson compile
 ```
@@ -136,7 +136,7 @@ meson install
 > cd ~
 > nano .bashrc
 > ```
-> Add the following to the end of your .bashrc file: `export PYTHONPATH="/usr/local/lib/python3/dist-packages/:"$PYTHONPATH`, where the path is the path to your install
+> Add the following to the end of your .bashrc file: `export PYTHONPATH="/usr/local/lib/python3/dist-packages/:"$PYTHONPATH`, where the path is the path to your install.
 > Run `source .bashrc` to update your path. 
 
 Users are encouraged to install Komorebi from their distro's package manager if available (or request it to be packaged!)
@@ -151,6 +151,9 @@ Optional arguments:
 
 - `--single-screen [int]` or `-ss [int]`: forces Komorebi to run on the specified screen (0 or 1) only
 - `version` or `--version`: prints current version
+
+> ![NOTE]
+> if your desktop disappears, restart the desktop service by running `nemo-desktop &`
 
 ### Change wallpaper & desktop preferences
 
