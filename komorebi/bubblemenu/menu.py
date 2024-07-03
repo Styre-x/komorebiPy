@@ -72,7 +72,7 @@ class BubbleMenu(Clutter.Actor):
         self.set_y(y + 15)
         self.set_scale(1, 1)
         self.set_opacity(255)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
         self.emit('menu_opened', e)
@@ -89,7 +89,7 @@ class BubbleMenu(Clutter.Actor):
         self.set_easing_duration(90)
         self.set_scale(0.9, 0.9)
         self.set_opacity(0)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
         self.emit('menu_closed')

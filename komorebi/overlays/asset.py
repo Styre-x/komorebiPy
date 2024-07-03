@@ -157,12 +157,12 @@ class Asset(Overlay):
         self.save_easing_state()
         self.set_easing_duration(custom_duration)
         self.props.opacity = 255
-        self.set_easing_mode(Clutter.AnimationMode.LINEAR)
+        #self.set_easing_mode(Clutter.AnimationMode.LINEAR)
         self.restore_easing_state()
 
     def fade_out(self, custom_duration=90):
         self.save_easing_state()
         self.set_easing_duration(custom_duration)
         self.props.opacity = 0
-        self.set_easing_mode(Clutter.AnimationMode.LINEAR)
+        #self.set_easing_mode(Clutter.AnimationMode.LINEAR)
         self.restore_easing_state()

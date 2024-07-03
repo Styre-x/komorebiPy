@@ -280,7 +280,7 @@ class Clock(Overlay):
         self.save_easing_state()
         self.set_easing_duration(90)
         self.set_opacity(self.text_alpha)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
         self.set_reactive(True)
 
@@ -288,6 +288,6 @@ class Clock(Overlay):
         self.save_easing_state()
         self.set_easing_duration(90)
         self.set_opacity(0)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
         self.set_reactive(False)

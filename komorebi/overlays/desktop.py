@@ -195,7 +195,7 @@ class Icon(Clutter.Actor):
             self.save_easing_state()
             self.set_easing_duration(90)
             self.set_scale(1.0, 1.0)
-            self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+            #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
             self.restore_easing_state()
 
         self.connect('button_press_event', _on_button_press_event)
@@ -221,7 +221,7 @@ class Icon(Clutter.Actor):
         self.set_easing_duration(400)
         self.set_opacity(100)
         self.title_text.set_opacity(100)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
     def un_dim_icon(self, with_scale=False):
@@ -235,7 +235,7 @@ class Icon(Clutter.Actor):
             self.set_scale(1.0, 1.0)
 
         self.title_text.set_opacity(255)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
 
@@ -742,14 +742,14 @@ class Desktop(ResponsiveGrid):
         self.save_easing_state()
         self.set_easing_duration(200)
         self.set_opacity(255)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
     def fade_out(self):
         self.save_easing_state()
         self.set_easing_duration(200)
         self.set_opacity(0)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
     # Returns a new Untitled Folder name
