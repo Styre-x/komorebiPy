@@ -190,6 +190,35 @@ class Icon(Clutter.Actor):
             if event.button != Gdk.BUTTON_SECONDARY:
                 self.scaled_scale()
             return False
+        
+        def _on_icon_size_change_requested(_, self):
+            # Will move size over by 1
+            new_icon_size = Desktop.current_selected_icon_size + 1
+
+            # If newly updated icon size exceeds the length of the list of possible icon sizes, set it back to 0 (Small)
+            if new_icon_size > len(Desktop.possible_icon_sizes):
+                new_icon_size = 0
+            
+            print("Icon size set to: " + Desktop.possible_icon_sizes[new_icon_size])
+
+            # Change the icon size
+            match new_icon_size:
+                case 0:
+                    Desktop.icon_size = 32
+                case 1:
+                    Desktop.icon_size = 64
+                case 2:
+                    Desktop.icon_size = 128
+                case _:
+                    print("[ERROR]: Could not change icon size.")
+
+            # Updated currently selected icon size to new icon size
+            # Refresh the desktop
+            Desktop.current_selected_icon_size = new_icon_size
+            Desktop.get_desktops()
+
+            self.connect('icon_size_change_requested', _on_icon_size_change_requested)
+
 
         def _on_button_release_event(self, event):
             self.save_easing_state()
@@ -268,8 +297,14 @@ class FolderIcon(Icon):
 
     def setup_folder_signals(self):
         def _on_button_folder_release_event(_, event):
-            if event.button == Gdk.BUTTON_PRIMARY:
-                Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
+            print("This change got compiled! :)")
+            if Settings.double_click_select:
+                if event.button == Gdk.BUTTON_PRIMARY and event.type == Clutter.EventType._2BUTTON_PRESS:
+                        print("This was a double click please god tell me it is")
+                        Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
+            else:
+                if event.button == Gdk.BUTTON_PRIMARY:
+                    Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
             return False
 
         self.connect('button_release_event', _on_button_folder_release_event)
@@ -469,6 +504,8 @@ class Desktop(ResponsiveGrid):
     # Utils
     icon_size = None
     desktop_path = None
+    possible_icon_sizes = ['Small', 'Medium', 'Large']
+    current_selected_icon_size = None
 
     info_window = None
     file_monitor = None
@@ -489,7 +526,9 @@ class Desktop(ResponsiveGrid):
         self.set_margin_top(60)
         self.set_margin_left(120)
         self.set_y_expand(True)
-        self.icon_size = 64
+        self.icon_size = 64 # On initialize, default to medium sized icons
+                            # Could probably save the setting for reboot, but that'll likely be saved for the future
+        self.current_selected_icon_size = 1 # 0 = Small, 1 = Medium, 2 = Large
         self.desktop_path = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP)
 
         self.monitor_changes()
