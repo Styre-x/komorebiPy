@@ -75,6 +75,8 @@ class Clock(Overlay):
 
         self.drag_action = Clutter.DragAction()
 
+        logging.debug("loading basic clock properties")
+
         # Properties
         self.text_container_actor.set_layout_manager(self.box_layout)
         self.shadow_container_actor.set_layout_manager(self.box_layout)
@@ -93,10 +95,12 @@ class Clock(Overlay):
         self.time_shadow_text.set_y_expand(True)
 
         # Load settings and initialize
+
+        logging.debug("Loaded properties")
         self.load_settings(config_file)
         self.set_date_time()
 
-        self.shadow_container_actor.add_effect(Clutter.BlurEffect())
+        #self.shadow_container_actor.add_effect(Clutter.BlurEffect())
 
         self.add_action(self.drag_action)
 
@@ -108,7 +112,7 @@ class Clock(Overlay):
 
         self.add_child(self.shadow_container_actor)
         self.add_child(self.text_container_actor)
-
+        logging.debug("Loading signals")
         # Signals
         self.signals_setup(screen)
 
@@ -273,10 +277,11 @@ class Clock(Overlay):
             self.set_x(x)
         if y != -1:
             self.set_y(y)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
     def fade_in(self, custom_duration=90):
+        return
         self.save_easing_state()
         self.set_easing_duration(90)
         self.set_opacity(self.text_alpha)
@@ -285,6 +290,7 @@ class Clock(Overlay):
         self.set_reactive(True)
 
     def fade_out(self):
+        return
         self.save_easing_state()
         self.set_easing_duration(90)
         self.set_opacity(0)

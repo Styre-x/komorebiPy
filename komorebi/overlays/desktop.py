@@ -188,7 +188,8 @@ class Icon(Clutter.Actor):
     def setup_signals(self):
         def _on_button_press_event(self, event):
             if event.button != Gdk.BUTTON_SECONDARY:
-                self.scaled_scale()
+                print("dude wtf")
+                #self.scaled_scale()
             return False
         
         def _on_icon_size_change_requested(_, self):
@@ -221,6 +222,7 @@ class Icon(Clutter.Actor):
 
 
         def _on_button_release_event(self, event):
+            return
             self.save_easing_state()
             self.set_easing_duration(90)
             self.set_scale(1.0, 1.0)
@@ -246,6 +248,7 @@ class Icon(Clutter.Actor):
         self.restore_easing_state()
 
     def dim_icon(self):
+        return
         self.save_easing_state()
         self.set_easing_duration(400)
         self.set_opacity(100)
@@ -615,16 +618,14 @@ class Desktop(ResponsiveGrid):
         def _on_menu_open(menu, e, self):
             # Dim unselected icons
             for icon in self.icons_list:
-                if e.source != icon:
-                    icon.dim_icon()
-                else:
+                if e.source == icon:
                     self.selected_icon = icon
 
             # If there's a selected icon, configure avaliable options
             if self.selected_icon:
                 # Hide meta options
                 menu.meta_options.hide()
-                menu.wallpaper_options.hide()
+                #menu.wallpaper_options.hide()
                 if isinstance(self.selected_icon, TrashIcon):
                     for item in [self.move_to_trash_item, self.copy_path_item, self.get_info_item,
                                  self.new_folder_item, self.paste_item]:
@@ -778,6 +779,7 @@ class Desktop(ResponsiveGrid):
         return None
 
     def fade_in(self):
+        return
         self.save_easing_state()
         self.set_easing_duration(200)
         self.set_opacity(255)
@@ -785,6 +787,7 @@ class Desktop(ResponsiveGrid):
         self.restore_easing_state()
 
     def fade_out(self):
+        return
         self.save_easing_state()
         self.set_easing_duration(200)
         self.set_opacity(0)

@@ -34,7 +34,7 @@ class Screen(Gtk.Window):
     overlay_root = None
     menu_root = None
 
-    def __init__(self, monitor_index):
+    def __init__(self, monitor_index, singleScreen):
         logging.debug(f'Initializing background window for monitor {monitor_index}...')
         Gtk.Window.__init__(self, title=f'Komorebi - Screen {monitor_index}')
 
@@ -45,6 +45,7 @@ class Screen(Gtk.Window):
         self.width = rectangle.width
         self.height = rectangle.height
         self.index = monitor_index
+        self.singleScreen = singleScreen
         if self.width == 0 or self.height == 0:
             raise RuntimeError(f"Couldn't get monitor geometry for monitor {monitor_index}")
         logging.debug(f'{monitor_index} - Rectangle geometry: x={rectangle.x} y={rectangle.y} '
@@ -169,7 +170,6 @@ class Screen(Gtk.Window):
 
         wallpaper_info = komorebi.utilities.get_wallpaper_config_file(name)
         wallpaper = komorebi.utilities.load_wallpaper(self, wallpaper_info)
-        overlays = komorebi.utilities.load_overlays(self, wallpaper_info)
 
         self.wallpaper_root.destroy_all_children()
         self.overlay_root.destroy_all_children()
@@ -181,6 +181,10 @@ class Screen(Gtk.Window):
         # THIS IS CAUSING A CRASH ON DUAL MONITORS
         # VERY BAD
         # FIGURE OUT WHY IT IS CRASHING
+        if self.index == 1 and self.singleScreen == False:
+            return
+        
+        overlays = komorebi.utilities.load_overlays(self, wallpaper_info)
 
         for overlay in overlays:
             self.overlay_root.add_child(overlay)

@@ -65,11 +65,11 @@ class Asset(Overlay):
     def register_menu_actions(self, menu):
         def _on_menu_open(_1, _2, self):
             # FIXME: Looks ugly to hide the asset overlay, try to blend in
-            self.hide()
+            #self.hide()
             return False
 
         def _on_menu_close(_, self):
-            self.show()
+            #self.show()
             return False
 
         menu.connect_weak('menu_opened', _on_menu_open, self)
@@ -154,6 +154,7 @@ class Asset(Overlay):
         self.asset_animation_timeout_handle = GLib.timeout_add(self.animation_speed * 30, _on_animation_timeout, self)
 
     def fade_in(self, custom_duration=90):
+        return
         self.save_easing_state()
         self.set_easing_duration(custom_duration)
         self.props.opacity = 255
@@ -161,6 +162,7 @@ class Asset(Overlay):
         self.restore_easing_state()
 
     def fade_out(self, custom_duration=90):
+        return
         self.save_easing_state()
         self.set_easing_duration(custom_duration)
         self.props.opacity = 0
