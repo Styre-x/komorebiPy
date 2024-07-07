@@ -192,7 +192,9 @@ class Icon(Clutter.Actor):
                 #self.scaled_scale()
             return False
         
-        def _on_icon_size_change_requested(self):
+        # This is commented out as to keep the function in the place it was originally intended to be.
+        # However, with my lack of understanding of signals, I'm attempting a different method
+        '''def _on_icon_size_change_requested(self):
             # Will move size over by 1
             new_icon_size = Desktop.current_selected_icon_size + 1
 
@@ -216,7 +218,7 @@ class Icon(Clutter.Actor):
             # Updated currently selected icon size to new icon size
             # Refresh the desktop
             Desktop.current_selected_icon_size = new_icon_size
-            Desktop.get_desktops()
+            Desktop.get_desktops()'''
 
         def _on_button_release_event(self, event):
             return

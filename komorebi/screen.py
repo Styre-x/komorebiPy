@@ -2,9 +2,11 @@ import logging
 
 from gi.repository import Clutter, Gdk, GObject, Gtk, GtkClutter
 
+from komorebi.overlays.desktop import Desktop
 from komorebi.bubblemenu.menu import BubbleMenu
 from komorebi.bubblemenu.item import BubbleMenuItem
 import komorebi.utilities
+
 
 
 class Screen(Gtk.Window):
@@ -145,9 +147,35 @@ class Screen(Gtk.Window):
         Clutter.main_quit()
         return False
 
+    # I was wanting to make this work with a signal but could not for the life of me figure out
+    # how to handle it. Thus, importing Desktop and doing it this way is the way for now
     def menu_change_icon_size(self, item, e):
         print("Change icon size clicked")
-        self.emit('icon_size_change_requested')
+        #self.emit('icon_size_change_requested')
+        # Will move size over by 1
+        new_icon_size = Desktop.current_selected_icon_size + 1
+
+        # If newly updated icon size exceeds the length of the list of possible icon sizes, set it back to 0 (Small)
+        if new_icon_size > len(Desktop.possible_icon_sizes):
+            new_icon_size = 0
+            
+        print("Icon size set to: " + Desktop.possible_icon_sizes[new_icon_size])
+
+        # Change the icon size
+        match new_icon_size:
+            case 0:
+                Desktop.icon_size = 32
+            case 1:
+                Desktop.icon_size = 64
+            case 2:
+                Desktop.icon_size = 128
+            case _:
+                print("[ERROR]: Could not change icon size.")
+
+        # Updated currently selected icon size to new icon size
+        # Refresh the desktop
+        Desktop.current_selected_icon_size = new_icon_size
+        Desktop.get_desktops()
         return False
 
     def menu_open_settings(self, item, e):
