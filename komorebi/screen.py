@@ -147,7 +147,7 @@ class Screen(Gtk.Window):
 
     def menu_change_icon_size(self, item, e):
         print("Change icon size clicked")
-        self.emit('icon_size_change_requested', False)
+        self.emit('icon_size_change_requested')
         return False
 
     def menu_open_settings(self, item, e):
@@ -217,6 +217,6 @@ class Screen(Gtk.Window):
     def settings_requested(self, isWallpaper):
         pass
 
-    @GObject.Signal(arg_types=(GObject.TYPE_BOOLEAN,))
-    def icon_size_change_requested(self, something):
+    @GObject.Signal
+    def icon_size_change_requested(self):
         pass

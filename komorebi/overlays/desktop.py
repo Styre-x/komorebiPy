@@ -192,7 +192,7 @@ class Icon(Clutter.Actor):
                 #self.scaled_scale()
             return False
         
-        def _on_icon_size_change_requested(_, self):
+        def _on_icon_size_change_requested(self):
             # Will move size over by 1
             new_icon_size = Desktop.current_selected_icon_size + 1
 
@@ -218,9 +218,6 @@ class Icon(Clutter.Actor):
             Desktop.current_selected_icon_size = new_icon_size
             Desktop.get_desktops()
 
-            self.connect('icon_size_change_requested', _on_icon_size_change_requested)
-
-
         def _on_button_release_event(self, event):
             return
             self.save_easing_state()
@@ -231,6 +228,10 @@ class Icon(Clutter.Actor):
 
         self.connect('button_press_event', _on_button_press_event)
         self.connect('button_release_event', _on_button_release_event)
+
+        # Bounty of 10 million dollars on this one if anyone can figure it out lol
+        #self.connect('icon_size_change_requested', _on_icon_size_change_requested)
+        
 
     def scaled_scale(self):
         self.save_easing_state()
