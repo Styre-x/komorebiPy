@@ -65,15 +65,15 @@ class BubbleMenu(Clutter.Actor):
         self.set_opacity(0)
         self.set_x(x)
         self.set_y(y)
-        self.save_easing_state()
-        self.set_easing_duration(90)
+        #self.save_easing_state()
+        #self.set_easing_duration(90)
 
         self.set_x(x + 15)
         self.set_y(y + 15)
-        self.set_scale(1, 1)
+        #self.set_scale(1, 1)
         self.set_opacity(255)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
-        self.restore_easing_state()
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.restore_easing_state()
 
         self.emit('menu_opened', e)
         
@@ -85,12 +85,12 @@ class BubbleMenu(Clutter.Actor):
         logging.debug("BubbleMenu faded in")
 
     def fade_out(self):
-        self.save_easing_state()
-        self.set_easing_duration(90)
-        self.set_scale(0.9, 0.9)
+        #self.save_easing_state()
+        #self.set_easing_duration(90)
+        #self.set_scale(0.9, 0.9)
         self.set_opacity(0)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
-        self.restore_easing_state()
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.restore_easing_state()
 
         self.emit('menu_closed')
 

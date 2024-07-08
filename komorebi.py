@@ -34,7 +34,6 @@ from komorebi.settings import ConfigKeys, Settings
 from komorebi.preferences_window import PreferencesWindow
 from gi.repository import Gio, Gtk, GtkClutter, Gdk, Gst, Clutter
 
-
 def check_desktop_wayland():
     return not (os.environ.get('XDG_SESSION_TYPE') == 'wayland' or os.environ.get('WAYLAND_DISPLAY'))
 
@@ -61,8 +60,8 @@ def _on_destroy(*args):
     logging.info("Quitting...")
     Clutter.main_quit()
 
-
 def main():
+
     print(f'Welcome to {komorebi.__package_name__}')
 
     # Handle Ctrl-C
@@ -118,9 +117,9 @@ def main():
     # Initialize Screen's
     
     if args.single_screen:
-        screen_list = [Screen(args.single_screen)]
+        screen_list = [Screen(args.single_screen, True)]
     else:
-        screen_list = [Screen(i) for i in range(monitor_count)]
+        screen_list = [Screen(i, False) for i in range(monitor_count)]
     
     # Setup some GTK properties
     main_settings = Gtk.Settings.get_default()

@@ -188,18 +188,52 @@ class Icon(Clutter.Actor):
     def setup_signals(self):
         def _on_button_press_event(self, event):
             if event.button != Gdk.BUTTON_SECONDARY:
-                self.scaled_scale()
+                print("dude wtf")
+                #self.scaled_scale()
             return False
+        
+        # This is commented out as to keep the function in the place it was originally intended to be.
+        # However, with my lack of understanding of signals, I'm attempting a different method
+        '''def _on_icon_size_change_requested(self):
+            # Will move size over by 1
+            new_icon_size = Desktop.current_selected_icon_size + 1
+
+            # If newly updated icon size exceeds the length of the list of possible icon sizes, set it back to 0 (Small)
+            if new_icon_size > len(Desktop.possible_icon_sizes):
+                new_icon_size = 0
+            
+            print("Icon size set to: " + Desktop.possible_icon_sizes[new_icon_size])
+
+            # Change the icon size
+            match new_icon_size:
+                case 0:
+                    Desktop.icon_size = 32
+                case 1:
+                    Desktop.icon_size = 64
+                case 2:
+                    Desktop.icon_size = 128
+                case _:
+                    print("[ERROR]: Could not change icon size.")
+
+            # Updated currently selected icon size to new icon size
+            # Refresh the desktop
+            Desktop.current_selected_icon_size = new_icon_size
+            Desktop.get_desktops()'''
 
         def _on_button_release_event(self, event):
+            return
             self.save_easing_state()
             self.set_easing_duration(90)
             self.set_scale(1.0, 1.0)
-            self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+            #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
             self.restore_easing_state()
 
         self.connect('button_press_event', _on_button_press_event)
         self.connect('button_release_event', _on_button_release_event)
+
+        # Bounty of 10 million dollars on this one if anyone can figure it out lol
+        #self.connect('icon_size_change_requested', _on_icon_size_change_requested)
+        
 
     def scaled_scale(self):
         self.save_easing_state()
@@ -217,11 +251,12 @@ class Icon(Clutter.Actor):
         self.restore_easing_state()
 
     def dim_icon(self):
+        return
         self.save_easing_state()
         self.set_easing_duration(400)
         self.set_opacity(100)
         self.title_text.set_opacity(100)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
     def un_dim_icon(self, with_scale=False):
@@ -235,7 +270,7 @@ class Icon(Clutter.Actor):
             self.set_scale(1.0, 1.0)
 
         self.title_text.set_opacity(255)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
 
@@ -268,8 +303,14 @@ class FolderIcon(Icon):
 
     def setup_folder_signals(self):
         def _on_button_folder_release_event(_, event):
-            if event.button == Gdk.BUTTON_PRIMARY:
-                Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
+            print("This change got compiled! :)")
+            if Settings.double_click_select:
+                if event.button == Gdk.BUTTON_PRIMARY and event.type == Clutter.EventType._2BUTTON_PRESS:
+                        print("This was a double click please god tell me it is")
+                        Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
+            else:
+                if event.button == Gdk.BUTTON_PRIMARY:
+                    Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
             return False
 
         self.connect('button_release_event', _on_button_folder_release_event)
@@ -469,6 +510,8 @@ class Desktop(ResponsiveGrid):
     # Utils
     icon_size = None
     desktop_path = None
+    possible_icon_sizes = ['Small', 'Medium', 'Large']
+    current_selected_icon_size = None
 
     info_window = None
     file_monitor = None
@@ -489,7 +532,9 @@ class Desktop(ResponsiveGrid):
         self.set_margin_top(60)
         self.set_margin_left(120)
         self.set_y_expand(True)
-        self.icon_size = 64
+        self.icon_size = 64 # On initialize, default to medium sized icons
+                            # Could probably save the setting for reboot, but that'll likely be saved for the future
+        self.current_selected_icon_size = 1 # 0 = Small, 1 = Medium, 2 = Large
         self.desktop_path = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP)
 
         self.monitor_changes()
@@ -576,16 +621,14 @@ class Desktop(ResponsiveGrid):
         def _on_menu_open(menu, e, self):
             # Dim unselected icons
             for icon in self.icons_list:
-                if e.source != icon:
-                    icon.dim_icon()
-                else:
+                if e.source == icon:
                     self.selected_icon = icon
 
             # If there's a selected icon, configure avaliable options
             if self.selected_icon:
                 # Hide meta options
                 menu.meta_options.hide()
-                menu.wallpaper_options.hide()
+                #menu.wallpaper_options.hide()
                 if isinstance(self.selected_icon, TrashIcon):
                     for item in [self.move_to_trash_item, self.copy_path_item, self.get_info_item,
                                  self.new_folder_item, self.paste_item]:
@@ -739,17 +782,19 @@ class Desktop(ResponsiveGrid):
         return None
 
     def fade_in(self):
+        return
         self.save_easing_state()
         self.set_easing_duration(200)
         self.set_opacity(255)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
     def fade_out(self):
+        return
         self.save_easing_state()
         self.set_easing_duration(200)
         self.set_opacity(0)
-        self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
+        #self.set_easing_mode(Clutter.AnimationMode.EASE_IN_SINE)
         self.restore_easing_state()
 
     # Returns a new Untitled Folder name
