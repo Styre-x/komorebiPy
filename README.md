@@ -6,11 +6,6 @@
 	<a href="http://www.kernel.org"><img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"></a>
 	<!-- <a href="https://travis-ci.org/Komorebi-Fork/komorebi"><img alt="Build Status" src="https://travis-ci.org/Komorebi-Fork/komorebi.svg?branch=master"></a> -->
 </p>
-
-<p align="center">
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=NvfRy5qMsos
-" target="_blank"><img src="http://img.youtube.com/vi/NvfRy5qMsos/0.jpg"
-alt="Komorebi Demo" width="240" height="180" border="10" /><br>Watch demo</a>
 </p>
 
 ## What is Komorebi?
@@ -20,14 +15,16 @@ It provides you with fully customisable image, video, and web page wallpapers th
 
 This project is a Python rewrite and continuation of the original [Komorebi](https://github.com/cheesecakeufo/komorebi) by [@cheesecakeufo](https://github.com/cheesecakeufo).
 
+This fork is an updated and working version of the Komorebi-fork.
+
 ![s1](https://raw.githubusercontent.com/Styre-x/komorebiPy/master/screenshotscollage.jpg)
 
 ## Installing
 
 Komorebi has been tested on:
 
-- **Gentoo**
 - **Ubuntu 22.04**
+- **Mint**
 
 Please test on your own distro and submit a pull request with your distro's instructions!
 
@@ -39,12 +36,13 @@ Please test on your own distro and submit a pull request with your distro's inst
 If you'd like to compile Komorebi from source instead, you'll need to install the following dependencies:
 
 ```bash
-sudo apt install valac libgtk-3-dev libgee-0.8-dev libclutter-gtk-1.0-dev libclutter-1.0-dev libwebkit2gtk-4.0-dev libclutter-gst-3.0-dev libgtk-4-dev
+sudo apt install valac libgtk-3-dev libgee-0.8-dev libclutter-gtk-1.0-dev libclutter-1.0-dev libwebkit2gtk-4.0-dev libclutter-gst-3.0-dev
 ```
 
 Meson needs to be installed through pip. The Ubuntu package is consistantly out of date.
+
 It needs to be installed under root to ensure it can access the location for install. 
-Sometimes root install fails when the enviroment is "externally managed." This can be fixed by renaming the file to .old or installing python3 via the command line.
+Sometimes root install fails when the enviroment is "externally managed." This can be fixed by renaming the file to .old or installing python3 via bash.
 
 ```bash
 sudo mv /usr/lib/python3.xx/EXTERNALLY-MANAGED /usr/lib/python3.xx/EXTERNALLY-MANAGED.old
@@ -88,7 +86,7 @@ Install from the [AUR](https://aur.archlinux.org/packages/komorebi/):
 yay -S komorebi
 ```
 
-or grab the required dependencies:
+or grab the required dependencies (RECOMMENDED):
 
 ```bash
 sudo pacman -S meson vala gtk3 clutter clutter-gtk clutter-gst libgee
@@ -144,16 +142,20 @@ Users are encouraged to install Komorebi from their distro's package manager if 
 ## Using Komorebi
 
 Simply run `komorebi`, or open your application launcher and look for **Komorebi**.
+The best way to launch Komorebi is via bash, either running `komorebi` or `& komorebi`. Occasonally the app manager will refuse to launch it. 
 
 Komorebi displays behind all other windows, so you may not notice anything if you have a fullscreen application running.
+
+When using Komorebi on a dual monitor setup, you may notice wallpapers pause when not selecting the desktop. Simply go to desktop preferences and uncheck `Pause Video playback on un-focus`.
 
 Optional arguments:
 
 - `--single-screen [int]` or `-ss [int]`: forces Komorebi to run on the specified screen (0 or 1) only
-- `version` or `--version`: prints current version
+- `-version` or `--version`: prints current version
+- `-l DEBUG`: helpful for sending issues and crash reports
 
 > ![NOTE]
-> if your desktop disappears, restart the desktop service by running `nemo-desktop &`
+> if your desktop disappears after quitting Komorebi, restart the desktop service by running `nemo-desktop &` on Mint. Other distros differ.
 
 ### Change wallpaper & desktop preferences
 
@@ -177,6 +179,8 @@ If you manually installed Komorebi, run the following on the cloned repository f
 cd builddir
 sudo ninja uninstall
 ```
+
+The komorebiPy source folder can be safely removed after running these commands. 
 
 If you didn't compile Komorebi from source, you can uninstall it through your package manager in the same way you would uninstall any other package.
 

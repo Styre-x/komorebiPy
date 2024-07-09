@@ -249,8 +249,7 @@ class PreferencesWindow(Gtk.Window):
         self.show_desktop_icons_button = Gtk.CheckButton(label='Show desktop icons')
         self.enable_video_wallpapers_button = Gtk.CheckButton(label='Enable Video Wallpaper')
         self.mute_playback_button = Gtk.CheckButton(label='Mute Video playback')
-        self.pause_playback_button = Gtk.CheckButton(label='Additional test to see if changes are being reflected')
-                                                            # Original label: 'Pause Video playback on un-focus'
+        self.pause_playback_button = Gtk.CheckButton(label='Pause Video playback on un-focus')
         self.enable_double_click_button = Gtk.CheckButton(label='Enable double clicking to select files')
 
         self.bottom_preferences_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10, margin_top=10)
