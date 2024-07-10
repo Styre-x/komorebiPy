@@ -1,13 +1,14 @@
 from komorebi.settings import ConfigKeys
 import logging
 
-from gi.repository import Clutter, Cogl, Gdk, GdkPixbuf, Gio, GLib, Gtk, Pango
+from gi.repository import Clutter, Cogl, Gdk, GdkPixbuf, GObject, Gio, GLib, Gtk, Pango
 
 from komorebi.bubblemenu.item import BubbleMenuItem, ViewMode
 from komorebi.overlays.base import Overlay
 
 from komorebi.settings import Settings
 import komorebi.utilities
+import komorebi.screen
 
 
 class RowLabel(Gtk.EventBox):
@@ -188,37 +189,9 @@ class Icon(Clutter.Actor):
     def setup_signals(self):
         def _on_button_press_event(self, event):
             if event.button != Gdk.BUTTON_SECONDARY:
-                print("dude wtf")
+                print("I print this because I don't want to mess with it yet")
                 #self.scaled_scale()
             return False
-        
-        # This is commented out as to keep the function in the place it was originally intended to be.
-        # However, with my lack of understanding of signals, I'm attempting a different method
-        '''def _on_icon_size_change_requested(self):
-            # Will move size over by 1
-            new_icon_size = Desktop.current_selected_icon_size + 1
-
-            # If newly updated icon size exceeds the length of the list of possible icon sizes, set it back to 0 (Small)
-            if new_icon_size > len(Desktop.possible_icon_sizes):
-                new_icon_size = 0
-            
-            print("Icon size set to: " + Desktop.possible_icon_sizes[new_icon_size])
-
-            # Change the icon size
-            match new_icon_size:
-                case 0:
-                    Desktop.icon_size = 32
-                case 1:
-                    Desktop.icon_size = 64
-                case 2:
-                    Desktop.icon_size = 128
-                case _:
-                    print("[ERROR]: Could not change icon size.")
-
-            # Updated currently selected icon size to new icon size
-            # Refresh the desktop
-            Desktop.current_selected_icon_size = new_icon_size
-            Desktop.get_desktops()'''
 
         def _on_button_release_event(self, event):
             return
@@ -230,9 +203,6 @@ class Icon(Clutter.Actor):
 
         self.connect('button_press_event', _on_button_press_event)
         self.connect('button_release_event', _on_button_release_event)
-
-        # Bounty of 10 million dollars on this one if anyone can figure it out lol
-        #self.connect('icon_size_change_requested', _on_icon_size_change_requested)
         
 
     def scaled_scale(self):
@@ -304,10 +274,13 @@ class FolderIcon(Icon):
     def setup_folder_signals(self):
         def _on_button_folder_release_event(_, event):
             print("This change got compiled! :)")
+
+            # Prep to remove vvv
             if Settings.double_click_select:
                 if event.button == Gdk.BUTTON_PRIMARY and event.type == Clutter.EventType._2BUTTON_PRESS:
                         print("This was a double click please god tell me it is")
                         Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
+            # Prep to remove ^^^
             else:
                 if event.button == Gdk.BUTTON_PRIMARY:
                     Gio.AppInfo.launch_default_for_uri(f'file://{self.path}', None)
@@ -510,8 +483,8 @@ class Desktop(ResponsiveGrid):
     # Utils
     icon_size = None
     desktop_path = None
-    possible_icon_sizes = ['Small', 'Medium', 'Large']
-    current_selected_icon_size = None
+    possible_icon_sizes = ['Small', 'Medium', 'Large'] # Prep to remove
+    current_selected_icon_size = None # Prep to remove
 
     info_window = None
     file_monitor = None
@@ -534,11 +507,12 @@ class Desktop(ResponsiveGrid):
         self.set_y_expand(True)
         self.icon_size = 64 # On initialize, default to medium sized icons
                             # Could probably save the setting for reboot, but that'll likely be saved for the future
-        self.current_selected_icon_size = 1 # 0 = Small, 1 = Medium, 2 = Large
+        self.current_selected_icon_size = 1 # 0 = Small, 1 = Medium, 2 = Large # Prep to remove
         self.desktop_path = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP)
 
         self.monitor_changes()
         self.get_desktops()
+        self.setup_signals()
 
         logging.debug('Loaded Desktop')
 
@@ -662,7 +636,7 @@ class Desktop(ResponsiveGrid):
             self.selected_icon = None
 
             return False
-
+        
         menu.connect_weak('menu_opened', _on_menu_open, self)
         menu.connect_weak('menu_closed', _on_menu_close, self)
 
@@ -673,6 +647,46 @@ class Desktop(ResponsiveGrid):
 
         self.file_monitor = Gio.File.new_for_path(self.desktop_path).monitor(Gio.FileMonitorFlags.NONE)
         self.file_monitor_signal = self.file_monitor.connect("changed", _on_file_monitor_changed)
+
+    # Prep to remove
+    def setup_signals(self):
+
+        # Forced to define this here I think, unfortunately
+        # I think this will let the icons be changed
+        def _on_icon_size_change_requested(self):
+            
+            print(self)
+            # Will move size over by 1
+            new_icon_size = self.current_selected_icon_size + 1
+
+            # If newly updated icon size exceeds the length of the list of possible icon sizes, set it back to 0 (Small)
+            if new_icon_size > len(self.possible_icon_sizes):
+                new_icon_size = 0
+            
+            print("Icon size set to: " + self.possible_icon_sizes[new_icon_size])
+
+            # Change the icon size
+            match new_icon_size:
+                case 0:
+                    self.icon_size = 32
+                case 1:
+                    self.icon_size = 64
+                case 2:
+                    self.icon_size = 128
+                case _:
+                    print("[ERROR]: Could not change icon size.")
+
+            # Updated currently selected icon size to new icon size
+            # Refresh the desktop
+            self.current_selected_icon_size = new_icon_size
+            self.get_desktops()
+            print("This will print if this ran all the way through!")
+
+
+        
+        # Connects signal to the desktop
+        #self.connect('icon_size_change_requested', _on_icon_size_change_requested)
+        print("signal is set up in desktop finally!")
 
     # Get .desktop's
     def get_desktops(self):
