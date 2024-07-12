@@ -170,6 +170,7 @@ Komorebi provides a simple tool to create your own wallpapers! Simply run `komor
 ![s1](https://raw.githubusercontent.com/Styre-x/komorebiPy/master/screenshots/wallpaper_creator.jpg)
 
 You can use either an image, a video, or a web page as a wallpaper and you have many different options to customize your very own wallpaper!
+Videos above 1080x1920 will often tear and flash. 720p is often the best for dual monitor setups. 
 
 ## Uninstalling
 
