@@ -15,7 +15,6 @@ class ConfigKeys(Enum):
     ENABLE_VIDEO = 'EnableVideoWallpapers'
     MUTE_PLAYBACK = 'MutePlayback'
     PAUSE_PLAYBACK = 'PausePlayback'
-    DOUBLE_CLICK = 'DoubleClick' # Prep to remove
 
 
 class Settings:
@@ -31,7 +30,6 @@ class Settings:
     # yeah, this is bad for performance. Oh well!
     # It fixes the dual monitor issue. 
     pause_playback = False
-    double_click_select = False # Prep to remove
     autostart = False
 
     # Internal settings files
@@ -83,7 +81,6 @@ class Settings:
         Settings.enable_video_wallpapers = Settings._str2bool(Settings._optional(ConfigKeys.ENABLE_VIDEO.value, True))
         Settings.mute_playback = Settings._str2bool(Settings._optional(ConfigKeys.MUTE_PLAYBACK.value, False))
         Settings.pause_playback = Settings._str2bool(Settings._optional(ConfigKeys.PAUSE_PLAYBACK.value, True))
-        Settings.double_click_select = Settings._str2bool(Settings._optional(ConfigKeys.DOUBLE_CLICK.value, False)) # Prep to remove
         Settings.autostart = Settings._str2bool(Settings._optional(ConfigKeys.AUTOSTART.value, False))
 
         Settings.fix_conflicts()
@@ -132,7 +129,6 @@ class Settings:
         Settings._config_key_file.set_boolean(Settings.key_file_group, ConfigKeys.MUTE_PLAYBACK.value, Settings.mute_playback)
         Settings._config_key_file.set_boolean(
             Settings.key_file_group, ConfigKeys.PAUSE_PLAYBACK.value, Settings.pause_playback)
-        Settings._config_key_file.set_boolean(Settings.key_file_group, ConfigKeys.DOUBLE_CLICK.value, Settings.double_click_select) # Prep to remove
         Settings._config_key_file.set_boolean(Settings.key_file_group, ConfigKeys.AUTOSTART.value, Settings.autostart)
 
         # Delete the file

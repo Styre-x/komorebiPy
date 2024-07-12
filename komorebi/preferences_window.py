@@ -155,7 +155,6 @@ class PreferencesWindow(Gtk.Window):
     enable_video_wallpapers_button = None
     mute_playback_button = None
     pause_playback_button = None
-    enable_double_click_selection = None # Prep to remove
 
     bottom_preferences_box = None
 
@@ -250,7 +249,6 @@ class PreferencesWindow(Gtk.Window):
         self.enable_video_wallpapers_button = Gtk.CheckButton(label='Enable Video Wallpaper')
         self.mute_playback_button = Gtk.CheckButton(label='Mute Video playback')
         self.pause_playback_button = Gtk.CheckButton(label='Pause Video playback on un-focus')
-        self.enable_double_click_button = Gtk.CheckButton(label='Enable double clicking to select files') # Prep to remove
 
         self.bottom_preferences_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10, margin_top=10)
         self.donate_button = Gtk.Button(label='Donate', valign=Gtk.Align.CENTER)
@@ -285,7 +283,6 @@ class PreferencesWindow(Gtk.Window):
         self.enable_video_wallpapers_button.set_active(Settings.enable_video_wallpapers)
         self.mute_playback_button.set_active(Settings.mute_playback)
         self.pause_playback_button.set_active(Settings.pause_playback)
-        self.enable_double_click_button.set_active(Settings.double_click_select) # Prep to remove
 
         self.set_wallpaper_name_label()
 
@@ -315,7 +312,6 @@ class PreferencesWindow(Gtk.Window):
         self.preferences_page.add(self.enable_video_wallpapers_button)
         self.preferences_page.add(self.mute_playback_button)
         self.preferences_page.add(self.pause_playback_button)
-        self.preferences_page.add(self.enable_double_click_button) # Prep to remove
         self.preferences_page.pack_end(self.bottom_preferences_box, True, True, 0)
 
         self.bottom_wallpapers_box.add(Gtk.Image.new_from_resource('/org/komorebi-team/komorebi/info.svg'))
@@ -398,12 +394,6 @@ class PreferencesWindow(Gtk.Window):
             Settings.save_configuration_file()
             self.emit('settings-changed', ConfigKeys.PAUSE_PLAYBACK)
 
-        # Prep to remove
-        def _on_enable_double_click_button_toggled(_, self):
-            Settings.double_click_select = self.enable_double_click_button.props.active
-            Settings.save_configuration_file()
-            self.emit('settings-changed', ConfigKeys.DOUBLE_CLICK)
-
         def _on_wallpaper_changed(_, wallpaper_name, self):
             Settings.wallpaper_name = wallpaper_name
             Settings.save_configuration_file()
@@ -420,7 +410,6 @@ class PreferencesWindow(Gtk.Window):
         self.enable_video_wallpapers_button.connect('toggled', _on_enable_video_wallpapers_button_toggled, self)
         self.mute_playback_button.connect('toggled', _on_mute_playback_button_toggled, self)
         self.pause_playback_button.connect('toggled', _on_pause_playback_button_toggled, self)
-        self.enable_double_click_button.connect('toggled', _on_enable_double_click_button_toggled, self) # Prep to remove
         self.wallpapers_selector.connect('wallpaper_changed', _on_wallpaper_changed, self)
 
     # Changes the wallpaper name label

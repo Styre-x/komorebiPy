@@ -23,7 +23,6 @@ class Screen(Gtk.Window):
     bubble_menu = None
 
     # Bubble Menu Items
-    change_icon_size_item = None # Prep to remove
     change_wallpaper_item = None
     settings_item = None
 
@@ -85,12 +84,10 @@ class Screen(Gtk.Window):
         # Setup BubbleMenu and items
         self.bubble_menu = BubbleMenu(self)
 
-        self.change_icon_size_item = BubbleMenuItem("Change Icon Size", self.menu_change_icon_size) # Prep to remove
         self.change_wallpaper_item = BubbleMenuItem("Change Wallpaper", self.menu_change_wallpaper)
         self.settings_item = BubbleMenuItem("Desktop Preferences", self.menu_open_settings)
         self.exit_item = BubbleMenuItem(f"Exit {komorebi.__package_name__}", self.menu_exit)
 
-        self.bubble_menu.meta_options.add_child(self.change_icon_size_item) # Prep to remove
         self.bubble_menu.meta_options.add_child(self.change_wallpaper_item)
         self.bubble_menu.meta_options.add_child(self.settings_item)
         self.bubble_menu.meta_options.add_child(self.exit_item)
@@ -145,13 +142,6 @@ class Screen(Gtk.Window):
     def menu_exit(self, item, e):
         logging.debug("Exit clicked")
         Clutter.main_quit()
-        return False
-
-    # WIP: Currently solving the issue with the signal emitted to ln 197 in desktop.py, 'def _on_icon_size_change_requested'
-    # Prep to remove
-    def menu_change_icon_size(self, item, e):
-        print("Change icon size clicked")
-        self.emit('icon_size_change_requested')
         return False
 
     def menu_open_settings(self, item, e):
@@ -220,9 +210,4 @@ class Screen(Gtk.Window):
     @GObject.Signal(arg_types=(GObject.TYPE_BOOLEAN,))
     def settings_requested(self, isWallpaper):
         pass
-    
-    # Prep to remove
-    @GObject.Signal()
-    def icon_size_change_requested():
-        print("signal emitted")
         
