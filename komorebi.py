@@ -106,7 +106,7 @@ def main():
     Gio.resources_register(resource)
 
     display = Gdk.Display.get_default()
-    if args.single_screen:
+    if  args.single_screen == 0 or args.single_screen == 1:
         monitor_count = 1
     else:
         monitor_count = display.get_n_monitors()
@@ -116,7 +116,7 @@ def main():
 
     # Initialize Screen's
     
-    if args.single_screen:
+    if args.single_screen == 0 or args.single_screen == 1:
         screen_list = [Screen(args.single_screen, True)]
     else:
         screen_list = [Screen(i, False) for i in range(monitor_count)]

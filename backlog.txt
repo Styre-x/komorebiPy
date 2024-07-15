@@ -1,0 +1,8 @@
+Possible features to implement in the future:
+
+- Enhanced desktop environment
+	Features attempted but weren't finished include:
+		Enable double click selection
+		Allow renaming files
+		Allow resizing of icons
+		etc.

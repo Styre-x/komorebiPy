@@ -2,10 +2,10 @@ import logging
 
 from gi.repository import Clutter, Gdk, GObject, Gtk, GtkClutter
 
-from komorebi.overlays.desktop import Desktop
 from komorebi.bubblemenu.menu import BubbleMenu
 from komorebi.bubblemenu.item import BubbleMenuItem
 import komorebi.utilities
+import komorebi.overlays.desktop
 
 
 
@@ -23,7 +23,6 @@ class Screen(Gtk.Window):
     bubble_menu = None
 
     # Bubble Menu Items
-    change_icon_size_item = None
     change_wallpaper_item = None
     settings_item = None
 
@@ -85,12 +84,10 @@ class Screen(Gtk.Window):
         # Setup BubbleMenu and items
         self.bubble_menu = BubbleMenu(self)
 
-        self.change_icon_size_item = BubbleMenuItem("Change Icon Size", self.menu_change_icon_size)
         self.change_wallpaper_item = BubbleMenuItem("Change Wallpaper", self.menu_change_wallpaper)
         self.settings_item = BubbleMenuItem("Desktop Preferences", self.menu_open_settings)
         self.exit_item = BubbleMenuItem(f"Exit {komorebi.__package_name__}", self.menu_exit)
 
-        self.bubble_menu.meta_options.add_child(self.change_icon_size_item)
         self.bubble_menu.meta_options.add_child(self.change_wallpaper_item)
         self.bubble_menu.meta_options.add_child(self.settings_item)
         self.bubble_menu.meta_options.add_child(self.exit_item)
@@ -145,37 +142,6 @@ class Screen(Gtk.Window):
     def menu_exit(self, item, e):
         logging.debug("Exit clicked")
         Clutter.main_quit()
-        return False
-
-    # I was wanting to make this work with a signal but could not for the life of me figure out
-    # how to handle it. Thus, importing Desktop and doing it this way is the way for now
-    def menu_change_icon_size(self, item, e):
-        print("Change icon size clicked")
-        #self.emit('icon_size_change_requested')
-        # Will move size over by 1
-        new_icon_size = Desktop.current_selected_icon_size + 1
-
-        # If newly updated icon size exceeds the length of the list of possible icon sizes, set it back to 0 (Small)
-        if new_icon_size > len(Desktop.possible_icon_sizes):
-            new_icon_size = 0
-            
-        print("Icon size set to: " + Desktop.possible_icon_sizes[new_icon_size])
-
-        # Change the icon size
-        match new_icon_size:
-            case 0:
-                Desktop.icon_size = 32
-            case 1:
-                Desktop.icon_size = 64
-            case 2:
-                Desktop.icon_size = 128
-            case _:
-                print("[ERROR]: Could not change icon size.")
-
-        # Updated currently selected icon size to new icon size
-        # Refresh the desktop
-        Desktop.current_selected_icon_size = new_icon_size
-        Desktop.get_desktops()
         return False
 
     def menu_open_settings(self, item, e):
@@ -244,7 +210,4 @@ class Screen(Gtk.Window):
     @GObject.Signal(arg_types=(GObject.TYPE_BOOLEAN,))
     def settings_requested(self, isWallpaper):
         pass
-
-    @GObject.Signal
-    def icon_size_change_requested(self):
-        pass
+        
