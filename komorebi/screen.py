@@ -170,7 +170,6 @@ class Screen(Gtk.Window):
 
         self.wallpaper_root.add_child(wallpaper)
         wallpaper.register_menu_actions(self.bubble_menu)
-        print("LINE 171 screen.py is commented out. Please fix whatever is causing gtk to crash :)")
         ##TODO:::
         # THIS IS CAUSING A CRASH ON DUAL MONITORS
         # VERY BAD

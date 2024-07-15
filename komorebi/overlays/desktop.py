@@ -189,7 +189,7 @@ class Icon(Clutter.Actor):
     def setup_signals(self):
         def _on_button_press_event(self, event):
             if event.button != Gdk.BUTTON_SECONDARY:
-                print("dude wtf")
+                print("")
                 #self.scaled_scale()
             return False
 
