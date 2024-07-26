@@ -156,6 +156,7 @@ Optional arguments:
 
 > ![NOTE]
 > if your desktop disappears after quitting Komorebi, restart the desktop service by running `nemo-desktop &` on Mint. Other distros differ.
+> If komorebi crashes with dual monitors, use the single screen argument and run it on a single monitor.  
 
 ### Change wallpaper & desktop preferences
 
