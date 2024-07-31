@@ -36,7 +36,7 @@ Please test on your own distro and submit a pull request with your distro's inst
 If you'd like to compile Komorebi from source instead, you'll need to install the following dependencies:
 
 ```bash
-sudo apt install valac libgtk-3-dev libgee-0.8-dev libclutter-gtk-1.0-dev libclutter-1.0-dev libwebkit2gtk-4.0-dev libclutter-gst-3.0-dev
+sudo apt install valac libgtk-3-dev libgee-0.8-dev libclutter-gtk-1.0-dev libclutter-1.0-dev libwebkit2gtk-4.0-dev libclutter-gst-3.0-dev ninja-build
 ```
 
 Meson needs to be installed through pip. The Ubuntu package is consistantly out of date.
