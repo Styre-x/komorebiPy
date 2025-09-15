@@ -24,7 +24,7 @@ This fork is an updated and working version of the Komorebi-fork.
 Komorebi has been tested on:
 
 - **Ubuntu 22.04**
-- **Mint**
+- **Mint 22.1**
 
 Please test on your own distro and submit a pull request with your distro's instructions!
 
@@ -42,7 +42,7 @@ sudo apt install valac libgtk-3-dev libgee-0.8-dev libclutter-gtk-1.0-dev libclu
 Meson needs to be installed through pip. The Ubuntu package is consistantly out of date.
 
 It needs to be installed under root to ensure it can access the location for install. 
-Sometimes root install fails when the enviroment is "externally managed." This can be fixed by renaming the file to .old or installing python3 via bash.
+Sometimes root install fails when the enviroment is "externally managed." This can be fixed by renaming the file to .old, creating a venv and sourcing that, or installing python3 via bash and not through the package managers. This could break some installs if your distro needs a specific version of Python!
 
 ```bash
 sudo mv /usr/lib/python3.xx/EXTERNALLY-MANAGED /usr/lib/python3.xx/EXTERNALLY-MANAGED.old
@@ -124,7 +124,7 @@ meson install
 > [!NOTE]
 > The default installation prefix is `/usr/local`. If you want to install it in a different location, you can specify it with `meson setup builddir --prefix=/your/prefix`.
 >
-> This is VERY important, as /usr/local/bin is not in the default PATH for non-root users on most distros and, in particular, the `PYTHONPATH` may not include `/usr/local/lib/python3.x/site-packages`.
+> This is VERY important, in particular for the `PYTHONPATH` which may not include `/usr/local/lib/python3.x/site-packages`.
 
 > [!NOTE]
 > IF IT DOES NOT LAUNCH: add the install location to `PYTHONPATH`. You can find the install location given when running `meson install`.
